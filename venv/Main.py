@@ -1,3 +1,4 @@
+from saved_data import *
 import random
 import pygame
 scrnw, scrnh = 480, 400
@@ -82,15 +83,12 @@ while run:
 
     if snake_tiles.__contains__([x, y]):
         run = False
-        print("Good job! Your score was:", score)
 
-    if x < 0 or x > scrnw:
+    if x < 0 or x >= scrnw:
         run = False
-        print("Good job! Your score was:", score)
 
-    if y < 0 or y > scrnh:
+    if y < 0 or y >= scrnh:
         run = False
-        print("Good job! Your score was:", score)
 
     snake_tiles[0] = [x, y]
     snake_tiles.append([x, y])
@@ -107,4 +105,13 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+
+if score > int(high_score):
+    file = open("saved_data.py", "w")
+    file.write("high_score = " + str(score) + "\n")
+    file.close()
+    print("NEW HIGH SCORE!! Your score was:", score)
+else:
+    print("Good job! Your score was:", score)
+
 pygame.quit()
